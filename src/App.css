@@ -25,3 +25,9 @@ p {
   text-align: center;
   padding: 2rem;
 }
+.fav-movies{
+  width: 100vw;
+  margin: 1rem auto;
+  text-align: center;
+  padding: 2rem;
+}

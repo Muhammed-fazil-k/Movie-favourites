@@ -1,13 +1,15 @@
 import MovieItem from "./MovieItem"
 import styles from '../../styles/MoviesList.module.css'
+import { useContext } from "react"
+import { FavMoviesContext } from "./favourite/FavouriteContext"
 
-export default function MoviesList({movies}) {
+export default function MoviesList({moviesID}) {
   return (
     <div>
       <ul className={styles["movies-list"]}>
         {
-            movies.map(movie => {
-                return <MovieItem key={movie.imdbID} movie={movie}/>
+            moviesID.map(movieID => {
+                return <MovieItem key={movieID} movieID={movieID}/>
             })
         }
       </ul>
