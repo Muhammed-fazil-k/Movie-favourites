@@ -28,8 +28,10 @@ p {
 .fav-movies{
   width: 100vw;
   margin: 1rem auto;
-  text-align: center;
   padding: 2rem;
+}
+.fav-movies-title{
+  text-align: center;
 }
 .search-bar{
   width: 100vw;
@@ -45,6 +47,7 @@ p {
   margin: 1rem auto;
   padding: 2rem;
 }
-.all-movies h1{
+.all-movies-title{
   text-align: center;
 }
+

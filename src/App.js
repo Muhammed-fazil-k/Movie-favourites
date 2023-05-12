@@ -7,6 +7,7 @@ import {
   FavMoviesDispatchContext,
 } from "./components/movies/favourite/FavouriteContext";
 import SearchBar from "./components/search/SearchBar";
+import LoadingSpinner from "./components/utils/LoadingSpinner";
 
 function App() {
   //fetch default movies list
@@ -26,6 +27,7 @@ function App() {
             return movie.imdbID;
           })
         );
+        setIsLoading(false)
       });
   }, [searchQuery]);
 
@@ -42,6 +44,9 @@ function App() {
     setSearchQuery(query);
   }
 
+  //loading feature
+  const [isLoading,setIsLoading] = useState(true);
+
   // Using context for providing favmovies and dipatcher since it is required for children.
   return (
     <div className="App">
@@ -55,12 +60,19 @@ function App() {
           </div>
 
           <div className="fav-movies">
-            <h1>Favourate movies</h1>
+            <div className="fav-movies-title">
+              <h1>Favourate movies</h1>
+            </div>
             <MoviesList moviesID={favMoviesId} />
           </div>
           <div className="all-amovies">
+            <div className="all-movies-title">
             <h1>Movies</h1>
-            <MoviesList moviesID={moviesID} />
+
+            </div>
+            {!isLoading? <MoviesList moviesID={moviesID} /> : <LoadingSpinner/>}
+
+            
           </div>
         </FavMoviesDispatchContext.Provider>
       </FavMoviesContext.Provider>

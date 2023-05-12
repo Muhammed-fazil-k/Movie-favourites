@@ -71,3 +71,8 @@
 .movie-item-favorite {
   color: #ff0000;
 }
+
+.movie-item-spinner{
+  width:350px;
+
+}
