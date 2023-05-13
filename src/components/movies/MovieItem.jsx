@@ -23,6 +23,7 @@ export default function MovieItem({ movieID }) {
   useEffect(() => {
     const apiKey = process.env.REACT_APP_API_KEY;
     const movieItemUrl = `https://www.omdbapi.com/?i=${movieID}&apikey=${apiKey}`;
+    setIsMovieLoading(true);
     fetch(movieItemUrl)
       .then((res) => res.json())
       .then((data) => {

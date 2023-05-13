@@ -19,15 +19,23 @@ function App() {
   const movieUrl = `https://www.omdbapi.com/?apikey=${apiKey}&s=${searchQuery}`;
 
   useEffect(() => {
+    setIsLoading(true);
+    setIsError(false)
     fetch(movieUrl)
       .then((response) => response.json())
       .then((data) => {
-        setMoviesID(
-          data.Search.map((movie) => {
-            return movie.imdbID;
-          })
-        );
-        setIsLoading(false)
+        if (data.Response === "True") {
+          setMoviesID(
+            data.Search.map((movie) => {
+              return movie.imdbID;
+            })
+          );
+        } else {
+          setError(data.Error);
+          setIsError(true);
+        }
+
+        setIsLoading(false);
       });
   }, [searchQuery]);
 
@@ -41,11 +49,19 @@ function App() {
 
   //search feature
   function handleSearch(query) {
-    setSearchQuery(query);
+    if (query === "") {
+      setSearchQuery("Avenger");
+    } else {
+      setSearchQuery(query);
+    }
   }
 
   //loading feature
-  const [isLoading,setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(true);
+
+  //error handling in user search
+  const [isError, setIsError] = useState(false);
+  const [error, setError] = useState("");
 
   // Using context for providing favmovies and dipatcher since it is required for children.
   return (
@@ -67,12 +83,30 @@ function App() {
           </div>
           <div className="all-amovies">
             <div className="all-movies-title">
-            <h1>Movies</h1>
-
+              <h1>Movies</h1>
             </div>
-            {!isLoading? <MoviesList moviesID={moviesID} /> : <LoadingSpinner/>}
-
-            
+            <div>
+              {isError ? (
+                <p
+                  style={{
+                    textAlign: "center",
+                    margin: "1rem",
+                    fontStyle: "italic",
+                    color: "red",
+                  }}
+                >
+                  {error}
+                </p>
+              ) : (
+                <>
+                  {!isLoading ? (
+                    <MoviesList moviesID={moviesID} />
+                  ) : (
+                    <LoadingSpinner />
+                  )}
+                </>
+              )}
+            </div>
           </div>
         </FavMoviesDispatchContext.Provider>
       </FavMoviesContext.Provider>
