@@ -23,9 +23,9 @@ function App() {
         <div className="App">
           <NavBar />
           <Routes>
-            <Route path="/" element={<MoviesHomePage />} />
-            <Route path="/movies" element={<MoviesHomePage />} />
-            <Route path="/favourite-movies" element={<FavouriteHomePage />} />
+            <Route exact path="/" element={<MoviesHomePage />} />
+            <Route exact path="/movies" element={<MoviesHomePage />} />
+            <Route exact path="/favourite-movies" element={<FavouriteHomePage />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </div>
