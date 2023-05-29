@@ -1,25 +1,17 @@
 import { useContext, useEffect, useState } from "react";
 import Card from "../utils/Card";
 import styles from "../../styles/MovieItem.module.css";
-import {
-  FavMoviesContext,
-  FavMoviesDispatchContext,
-} from "./favourite/FavouriteContext";
+import { FavMoviesDispatchContext } from "./favourite/FavouriteContext";
 import { FaHeart, FaRegHeart } from "react-icons/fa";
 import LoadingSpinner from "../utils/LoadingSpinner";
 
-export default function MovieItem({ movieID }) {
+export default function MovieItem({ movieID, isFav }) {
   //From movieId get details
   const [movieDetail, setMovieDetail] = useState({});
 
   //Description will be displayed shortly and user can expand it
   const [movieShortDesc, setMovieShortDesc] = useState("");
   const [movieDesc, setMovieDesc] = useState("");
-  const favMoviesID = useContext(FavMoviesContext);
-  const [isFavourite, setIsFavourite] = useState(false);
-  function isFavouriteMovie() {
-    return favMoviesID.includes(movieID);
-  }
   useEffect(() => {
     const apiKey = process.env.REACT_APP_API_KEY;
     const movieItemUrl = `https://www.omdbapi.com/?i=${movieID}&apikey=${apiKey}`;
@@ -30,7 +22,6 @@ export default function MovieItem({ movieID }) {
         setMovieDetail(data);
         setMovieShortDesc(data.Plot.substring(0, 20));
         setMovieDesc(data.Plot);
-        setIsFavourite(isFavouriteMovie());
         setIsMovieLoading(false);
       });
   }, []);
@@ -42,18 +33,16 @@ export default function MovieItem({ movieID }) {
   const favDispatcher = useContext(FavMoviesDispatchContext);
 
   function handleFavourite() {
-    if (!isFavouriteMovie()) {
+    if (!isFav) {
       favDispatcher({
         type: "fav_added",
         movieID: movieID,
       });
-      setIsFavourite(true);
     } else {
       favDispatcher({
         type: "fav_removed",
         movieID: movieID,
       });
-      setIsFavourite(false);
     }
   }
 
@@ -62,8 +51,7 @@ export default function MovieItem({ movieID }) {
   return (
     <Card>
       {isMovieLoading ? (
-        <div className={styles['movie-item-spinner']}>
-
+        <div className={styles["movie-item-spinner"]}>
           <LoadingSpinner />
         </div>
       ) : (
@@ -108,7 +96,7 @@ export default function MovieItem({ movieID }) {
                     }}
                   >
                     <a onClick={handleFavourite}>
-                      {isFavourite ? (
+                      {isFav ? (
                         <FaHeart
                           style={{ color: "red", transform: "scale(1.2)" }}
                         />
