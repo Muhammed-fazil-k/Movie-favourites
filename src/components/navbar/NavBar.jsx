@@ -9,7 +9,7 @@ export default function NavBar() {
         <div className="left">
           <li className={styles["nav-item"]}>
             <Link to="/movies" className={styles["nav-link"]}>
-              Watch Later 2
+              Watch Later 3
             </Link>
           </li>
         </div>

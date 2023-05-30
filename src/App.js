@@ -1,4 +1,4 @@
-import { Route, Routes } from "react-router-dom";
+import { Route, Router, Routes } from "react-router-dom";
 import "./App.css";
 import NavBar from "./components/navbar/NavBar";
 import { useReducer } from "react";
@@ -12,7 +12,7 @@ import NotFound from "./components/error/NotFound";
 import MoviesHomePage from "./components/movies/MoviesHomePage";
 import FavouriteHomePage from "./components/movies/FavouriteHomePage";
 function App() {
-  const initialFavs =  JSON.parse(localStorage.getItem('favourites'));
+  const initialFavs = JSON.parse(localStorage.getItem("favourites"));
   const [favMoviesId, favMoviesDispatcher] = useReducer(
     favouriteReducer,
     initialFavs
@@ -20,15 +20,15 @@ function App() {
   return (
     <FavMoviesContext.Provider value={favMoviesId}>
       <FavMoviesDispatchContext.Provider value={favMoviesDispatcher}>
-        <div className="App">
-          <NavBar />
-          <Routes>
-            <Route exact path="/" element={<MoviesHomePage />} />
-            <Route exact path="/movies" element={<MoviesHomePage />} />
-            <Route exact path="/favourite-movies" element={<FavouriteHomePage />} />
-            <Route path="*" element={<NotFound />} />
-          </Routes>
-        </div>
+          <div className="App">
+            <NavBar />
+            <Routes>
+              <Route path="/" element={<MoviesHomePage />} />
+              <Route path="movies" element={<MoviesHomePage />} />
+              <Route path="favourite-movies" element={<FavouriteHomePage />} />
+              <Route path="*" element={<NotFound />} />
+            </Routes>
+          </div>
       </FavMoviesDispatchContext.Provider>
     </FavMoviesContext.Provider>
   );
