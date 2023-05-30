@@ -12,6 +12,10 @@ import NotFound from "./components/error/NotFound";
 import MoviesHomePage from "./components/movies/MoviesHomePage";
 import FavouriteHomePage from "./components/movies/FavouriteHomePage";
 function App() {
+  // for a new browser initialize this variable in local storage
+  if(localStorage.getItem("favourites") === null){
+    localStorage.setItem("favourites",JSON.stringify([]))
+  }
   const initialFavs = JSON.parse(localStorage.getItem("favourites"));
   const [favMoviesId, favMoviesDispatcher] = useReducer(
     favouriteReducer,

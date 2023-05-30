@@ -3,8 +3,10 @@ import styles from '../../styles/MoviesList.module.css'
 
 export default function MoviesList({moviesID,favMoviesID}) {
 
-
   function isFavouriteMovie(movieID) {
+    if(favMoviesID === null){
+      return false;
+    }
     return favMoviesID.includes(movieID);
   }
   return (

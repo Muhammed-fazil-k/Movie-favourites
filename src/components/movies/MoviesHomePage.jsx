@@ -10,7 +10,6 @@ export default function MoviesHomePage() {
   //fetch default movies list
 
   const [searchQuery, setSearchQuery] = useState("Avengers");
-  console.log(searchQuery);
   const apiKey = process.env.REACT_APP_API_KEY;
 
   const movieUrl = `https://www.omdbapi.com/?apikey=${apiKey}&s=${searchQuery}`;

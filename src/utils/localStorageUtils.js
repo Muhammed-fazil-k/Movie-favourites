@@ -3,6 +3,6 @@ export const saveFavouritesToLocalStorage = (favourites) => {
 };
 
 export const getFavoritesFromLocalStorage = () => {
-  const favorites = localStorage.getItem("favorites");
+  const favorites = localStorage.getItem("favourites");
   return favorites ? JSON.parse(favorites) : [];
 };
